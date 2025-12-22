@@ -43,6 +43,26 @@ If the `DEFAULT_DESTINATION` environment variable is set and no `r` query parame
 
 The original `?r=` format continues to work as before. If `DEFAULT_DESTINATION` is not set, behavior remains unchanged.
 
+## Whitelist Destinations
+
+The UDL Server can restrict redirect targets to a predefined list of allowed hosts to prevent open redirects.
+
+### Configuration
+- **WHITELIST_DESTINATIONS**  
+  Comma-separated list of allowed destination hostnames (e.g. `example.com,shop.example.com`).
+- **DEFAULT_DESTINATION**  
+  Always allowed, even if its host is not included in `WHITELIST_DESTINATIONS`.
+
+### Behavior
+- Before redirecting, the server validates the destination host against `WHITELIST_DESTINATIONS`.
+- If the host is not allowed, the redirect is blocked.
+- If `WHITELIST_DESTINATIONS` is not set, behavior remains unchanged.
+- The whitelist applies to both `r` query parameter redirects and path-based redirects when `DEFAULT_DESTINATION` is enabled.
+- Existing redirect logic is preserved.
+
+### Purpose
+Prevents open redirects by ensuring only explicitly approved destinations are allowed.
+
 
 `https://udl.fdo.cr` is a **public (free to use) UDL Server** instance for anyone to try out and use on your own. It has usage limits (throttling), which should be more than enough for most low-medium traffic websites.
 

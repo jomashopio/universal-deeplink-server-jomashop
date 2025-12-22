@@ -17,6 +17,10 @@ if safelist.presence
     # If there's a safelist match for the target don't throttle at all
     next unless (safelist_regex =~ request.query_params["r"]?).nil?
 
+    # Ignore invalid URLs so they can be handled by the app (and show fallback)
+    # If it doesn't look like a URL starting with http, let it pass
+    next unless request.query_params["r"]?.to_s.starts_with?("http")
+
     # Not a match means we block that request - Use a single identifier
     # for all requests to avoid DoS by bloating our Defense cache store
     "block"

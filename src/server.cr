@@ -31,6 +31,30 @@ get "/" do |env|
     valid_uri = /https?/ =~ target_uri.scheme && target_uri.host
     raise "Invalid redirect URL" unless valid_uri
 
+    # Normalize host logic (handle nil host which shouldn't happen due to valid_uri check but good for safety)
+    if host = target_uri.host
+      # Validate against whitelist if configured
+      if whitelist_str = ENV["WHITELIST_DESTINATIONS"]?
+        whitelist = whitelist_str.split(",").map { |h| h.strip }
+
+        # Check if host is in whitelist
+        is_whitelisted = whitelist.includes?(host) || (host.starts_with?("www.") && whitelist.includes?(host[4..-1]))
+
+        # Also check if it matches DEFAULT_DESTINATION's host (implicit whitelist)
+        if !is_whitelisted
+           if default_dest = ENV["DEFAULT_DESTINATION"]?
+             if default_uri = URI.parse(default_dest)
+                if default_host = default_uri.host
+                   is_whitelisted = (host == default_host)
+                end
+             end
+           end
+        end
+
+        raise "Destination not allowed" unless is_whitelisted
+      end
+    end
+
     # Redirect (bounce back) requested URL
     env.redirect target_uri.to_s
   rescue udl_error
