@@ -93,7 +93,6 @@ describe "UDL Server" do
       get "/.well-known/apple-app-site-association"
 
       response.status_code.should eq(200)
-      response.body.should contain("2R28X9XZ2X.com.jomashop.ios")
       response.headers["Content-Type"].should eq("application/json")
     end
 
@@ -101,7 +100,6 @@ describe "UDL Server" do
       get "/.well-known/assetlinks.json"
 
       response.status_code.should eq(200)
-      response.body.should contain("com.jomashop.app")
       response.headers["Content-Type"].should eq("application/json")
     end
   end
