@@ -89,11 +89,19 @@ describe "UDL Server" do
       end
     end
 
-    it "populates apple-app-site-association file" do
+    it "serves static apple-app-site-association file" do
       get "/.well-known/apple-app-site-association"
 
-      result = "{\"applinks\":{\"apps\":[],\"details\":[{\"appID\":\"ABCDE12345.com.example.app\",\"paths\":[\"/*\"]},{\"appID\":\"ABCDE12345.com.example.app2\",\"paths\":[\"/*\"]}]},\"activitycontinuation\":{\"apps\":[\"ABCDE12345.com.example.app\",\"ABCDE12345.com.example.app2\"]}}"
-      response.body.should eq(result)
+      response.status_code.should eq(200)
+      response.body.should contain("2R28X9XZ2X.com.jomashop.ios")
+      response.headers["Content-Type"].should eq("application/json")
+    end
+
+    it "serves static assetlinks.json file" do
+      get "/.well-known/assetlinks.json"
+
+      response.status_code.should eq(200)
+      response.body.should contain("com.jomashop.app")
       response.headers["Content-Type"].should eq("application/json")
     end
   end
@@ -124,7 +132,7 @@ describe "UDL Server" do
 
       response.status_code.should eq(200)
       response.body.should contain("Something went wrong")
-      response.body.should contain("Check out the <a href=\"https://github.com/fdocr/udl-server#Troubleshooting\">README</a> for more details")
+      response.body.should contain("Check the server configuration for more details")
     end
 
     it "renders fallback page if WHITELIST_DESTINATIONS is set and destination host is not allowed" do

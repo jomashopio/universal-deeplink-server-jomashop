@@ -39,20 +39,7 @@ WHITELIST_DESTINATIONS=www.jomashop.com,jomashop.com
 |---|---|---|
 | `DEFAULT_DESTINATION` | Fallback redirect when no `r` param | `https://www.jomashop.com` |
 | `WHITELIST_DESTINATIONS` | Comma-separated allowed redirect hosts | `www.jomashop.com,jomashop.com` |
-| `AASA_APP_IDS` | Apple app IDs for Universal Links | `TEAM.com.jomashop.app` |
 | `PORT` | Server port (default `3000`) | `3000` |
-
-## Deployment
-
-Docker image built via GitHub Actions on push to `main`:
-
-```bash
-docker pull jomashop/jomashop-udl-server:latest
-docker run -p 3000:3000 \
-  -e DEFAULT_DESTINATION=https://www.jomashop.com \
-  -e WHITELIST_DESTINATIONS=www.jomashop.com,jomashop.com \
-  jomashop/jomashop-udl-server:latest
-```
 
 ## Performance
 

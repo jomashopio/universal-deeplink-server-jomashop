@@ -12,4 +12,6 @@ RUN crystal build --static --release ./src/server.cr
 FROM alpine:latest
 WORKDIR /
 COPY --from=builder /opt/server .
+COPY --from=builder /opt/apple-app-site-association .
+COPY --from=builder /opt/assetlinks.json .
 ENTRYPOINT ["./server"]

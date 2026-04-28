@@ -7,6 +7,10 @@ Dotenv.load(path: ".env.test") if Kemal.config.env == "test"
 
 error_context = "Use the root path instead, i.e. `/?r=TARGET_URL_HERE`"
 
+# Read static association files once at startup
+AASA_CONTENT = File.read("apple-app-site-association")
+ASSETLINKS_CONTENT = File.read("assetlinks.json")
+
 get "/" do |env|
   begin
     redirect_param = env.params.query["r"]?
@@ -60,23 +64,12 @@ end
 
 get "/.well-known/apple-app-site-association" do |env|
   env.response.content_type = "application/json"
+  AASA_CONTENT
+end
 
-  if aasa_apps = ENV["AASA_APP_IDS"]?
-    aasa_app_ids = aasa_apps.split(" ")
-    {
-      applinks: {
-        apps:    [] of String,
-        details: aasa_app_ids.map do |id|
-          {appID: id, paths: ["/*"]}
-        end,
-      },
-      activitycontinuation: {
-        apps: aasa_app_ids,
-      },
-    }.to_json
-  else
-    {error: "AASA_APP_ID not configured"}.to_json
-  end
+get "/.well-known/assetlinks.json" do |env|
+  env.response.content_type = "application/json"
+  ASSETLINKS_CONTENT
 end
 
 get "/*" do |env|
