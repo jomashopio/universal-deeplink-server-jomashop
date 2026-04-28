@@ -7,15 +7,17 @@ Private Universal Deep Link server for JomaShop mobile app deep linking.
 Bounces traffic through a separate domain so iOS Universal Links and Android App Links trigger correctly — even when users are browsing inside webviews (Instagram, TikTok, etc).
 
 ```mermaid
-flowchart LR
-    A["📱 3rd Party Webview\n(Instagram, TikTok)"] -- "udl.jomashop.com/rolex.html" --> B["⚡ UDL Server\nudl.jomashop.com"]
-    B -- "302 Redirect" --> C["🟢 Jomashop App\n(Native)"]
-    B -- "www.jomashop.com/rolex.html" --> D["🌐 Jomashop Website\nwww.jomashop.com"]
+flowchart TD
+    A["📱 User taps link in Instagram/TikTok\nudl.jomashop.com/rolex.html"] --> B{"OS checks AASA / assetlinks\non udl.jomashop.com"}
+    B -- "App installed" --> C["🟢 Jomashop App opens directly\nDeep links to /rolex.html"]
+    B -- "App not installed" --> D["⚡ UDL Server\nudl.jomashop.com"]
+    D -- "302 Redirect" --> E["🌐 www.jomashop.com/rolex.html"]
 
     style A fill:#dbeafe,stroke:#2563eb
     style B fill:#fef3c7,stroke:#d97706
     style C fill:#d1fae5,stroke:#059669
-    style D fill:#e5e7eb,stroke:#6b7280
+    style D fill:#fef3c7,stroke:#d97706
+    style E fill:#e5e7eb,stroke:#6b7280
 ```
 
 ## Usage
