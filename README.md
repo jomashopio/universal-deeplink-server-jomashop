@@ -1,6 +1,6 @@
-# JomaShop UDL Server
+# Jomashop UDL Server
 
-Private Universal Deep Link server for JomaShop mobile app deep linking.
+Private Universal Deep Link server for Jomashop mobile app deep linking.
 
 ## How it works
 
