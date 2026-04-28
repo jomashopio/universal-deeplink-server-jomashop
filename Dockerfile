@@ -1,5 +1,5 @@
 # Build image
-FROM crystallang/crystal:1.16.2-alpine AS builder
+FROM crystallang/crystal:1.19.2-alpine AS builder
 WORKDIR /opt
 # Cache dependencies
 COPY ./shard.yml ./shard.lock /opt/
