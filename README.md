@@ -1,6 +1,6 @@
 # Jomashop UDL Server
 
-Private Universal Deep Link server for Jomashop mobile app deep linking.
+A simplified, production-ready fork of [fdocr/udl-server](https://github.com/fdocr/udl-server) — stripped down to a single-purpose path-passthrough redirect server for Jomashop mobile app deep linking.
 
 ## How it works
 
