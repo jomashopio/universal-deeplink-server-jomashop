@@ -18,6 +18,15 @@ get "/.well-known/assetlinks.json" do |env|
   ASSETLINKS_CONTENT
 end
 
+get "/" do |env|
+  if default_target = ENV["DEFAULT_DESTINATION"]?
+    env.redirect default_target.rstrip("/") + "/"
+  else
+    udl_error = "DEFAULT_DESTINATION not configured"
+    render "src/views/fallback.ecr"
+  end
+end
+
 get "/*" do |env|
   if default_target = ENV["DEFAULT_DESTINATION"]?
     path = env.request.path
