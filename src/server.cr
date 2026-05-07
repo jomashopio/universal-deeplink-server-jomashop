@@ -21,14 +21,14 @@ end
 # ── Smart App Store Link ──
 # Detects iOS/Android via client-side UA and redirects to the correct store.
 # Desktop/unknown falls back to the web landing page.
-get "/app" do |env|
+get "/home" do |env|
   render "src/views/smartlink.ecr"
 end
 
 # ── In-App Store Trigger ──
 # Loaded from within the Jomashop app to open the native store
 # for rating, updating, or share-with-a-friend flows.
-get "/home" do |env|
+get "/home-app" do |env|
   render "src/views/appstore.ecr"
 end
 
