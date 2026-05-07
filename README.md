@@ -29,7 +29,7 @@ All paths are forwarded to `DEFAULT_DESTINATION`:
 
 ## Smart App Store Link
 
-`/download` detects the visitor's OS via user-agent and instantly redirects:
+`/home` detects the visitor's OS via user-agent and instantly redirects:
 
 | Device  | Destination |
 |---------|-------------|
@@ -41,7 +41,7 @@ The redirect fires in `<script>` before the page renders, so it's effectively in
 
 **Use it as a single link** in email campaigns, QR codes, social bios, etc:
 ```
-https://udl.jomashop.com/download
+https://udl.jomashop.com/home
 ```
 
 ## Environment Variables
