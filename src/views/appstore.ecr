@@ -3,38 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Get the Jomashop App</title>
-    <meta name="description" content="Download the Jomashop app for iOS or Android." />
+    <title>Jomashop App</title>
 
-    <!-- Immediate JS redirect (fires before page renders) -->
+    <!--
+      In-app download trigger.
+      Loaded inside the Jomashop app webview to open the native store
+      for rating, updating, or sharing with a friend.
+    -->
     <script>
       (function () {
         var ua = navigator.userAgent || navigator.vendor || window.opera;
 
-        // Native URI schemes break out of in-app webviews (Instagram, TikTok, etc.)
-        // itms-apps:// opens the App Store app directly on iOS
-        // intent:// tells Android to open Play Store with a browser fallback
-        var IOS_URL     = "itms-apps://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472";
-        var ANDROID_URL = "intent://details?id=com.jomashop.app#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.jomashop.app;end";
-        var FALLBACK    = "https://www.jomashop.com/app/";
-
         if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-          // Try native scheme first; fall back to HTTPS if still on page after 500ms
-          setTimeout(function () {
-            window.location.replace("https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472");
-          }, 500);
-          window.location.replace(IOS_URL);
+          // itms-apps:// opens App Store natively from the app's webview
+          window.location.replace("itms-apps://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472");
         } else if (/android/i.test(ua)) {
-          window.location.replace(ANDROID_URL);
-        } else {
-          window.location.replace(FALLBACK);
+          // market:// opens Play Store natively from the app's webview
+          window.location.replace("market://details?id=com.jomashop.app");
         }
       })();
     </script>
-
-    <noscript>
-      <meta http-equiv="refresh" content="3;url=https://www.jomashop.com/app/" />
-    </noscript>
 
     <style>
       @font-face {
@@ -43,9 +31,7 @@
         font-display: swap;
         src: url('https://www.jomashop.com/dist/file/Inter-Regular-subset-latin.c12fef52fecfde9da501.woff2') format('woff2');
       }
-
       *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         background: #fff;
@@ -56,50 +42,29 @@
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
       }
-
       .container {
         text-align: center;
         padding: 2rem 1.5rem;
         max-width: 380px;
       }
-
-      .logo {
-        margin-bottom: 2rem;
-      }
-      .logo img {
-        height: 22px;
-        width: auto;
-      }
-
-      h1 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #1a1a1a;
-        margin-bottom: 0.35rem;
-        letter-spacing: -0.01em;
-      }
-
-      .subtitle {
+      .logo { margin-bottom: 2rem; }
+      .logo img { height: 22px; width: auto; }
+      p {
         font-size: 0.85rem;
         color: #777;
-        margin-bottom: 1.75rem;
         line-height: 1.4;
+        margin-bottom: 1.75rem;
       }
-
       .badges {
         display: flex;
         justify-content: center;
         gap: 0.75rem;
       }
-
       .badges a {
         display: block;
         transition: opacity 0.15s ease;
       }
-      .badges a:hover {
-        opacity: 0.75;
-      }
-
+      .badges a:hover { opacity: 0.75; }
       .badges img {
         height: 44px;
         width: auto;
@@ -113,14 +78,13 @@
         <img src="https://www.jomashop.com/assets/joma/jomashop_logo.png" alt="Jomashop" height="22" width="190" />
       </div>
 
-      <h1>Never pay retail.</h1>
-      <p class="subtitle">Our app makes it easy.</p>
+      <p>Opening your store…</p>
 
       <div class="badges">
-        <a id="btn-ios" href="https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472">
+        <a href="https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472">
           <img src="https://www.jomashop.com/media/cms/app/download_ios.png" alt="Download on the App Store" />
         </a>
-        <a id="btn-android" href="https://play.google.com/store/apps/details?id=com.jomashop.app">
+        <a href="https://play.google.com/store/apps/details?id=com.jomashop.app">
           <img src="https://www.jomashop.com/media/cms/app/download_android.png" alt="Get it on Google Play" />
         </a>
       </div>
