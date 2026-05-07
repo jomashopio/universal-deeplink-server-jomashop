@@ -16,7 +16,7 @@
 
         if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
           // itms-apps:// opens App Store natively from the app's webview
-          window.location.replace("itms-apps://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472");
+          window.location.replace("itms-apps://itunes.apple.com/app/id6444218472");
         } else if (/android/i.test(ua)) {
           // market:// opens Play Store natively from the app's webview
           window.location.replace("market://details?id=com.jomashop.app");
