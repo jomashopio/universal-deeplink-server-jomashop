@@ -26,10 +26,21 @@ get "/app" do |env|
 end
 
 # ── In-App Store Trigger ──
-# Loaded from within the Jomashop app to open the native store
-# for rating, updating, or share-with-a-friend flows.
+# Server-side UA detection + 302 redirect.
+# WKWebView blocks JS custom-scheme redirects, but handles HTTP 302s
+# at the network level before its navigation policy kicks in.
+IOS_STORE     = "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472"
+ANDROID_STORE = "https://play.google.com/store/apps/details?id=com.jomashop.app"
+
 get "/home" do |env|
-  render "src/views/appstore.ecr"
+  ua = env.request.headers["User-Agent"]? || ""
+  if ua.includes?("iPhone") || ua.includes?("iPad") || ua.includes?("iPod")
+    env.redirect IOS_STORE
+  elsif ua.downcase.includes?("android")
+    env.redirect ANDROID_STORE
+  else
+    render "src/views/appstore.ecr"
+  end
 end
 
 get "/" do |env|
