@@ -25,6 +25,10 @@ get "/home" do |env|
   render "src/views/smartlink.ecr"
 end
 
+get "/" do |env|
+  render "src/views/smartlink.ecr"
+end
+
 # ── In-App Store Trigger ──
 # Loaded from within the Jomashop app to open the native store
 # for rating, updating, or share-with-a-friend flows.
