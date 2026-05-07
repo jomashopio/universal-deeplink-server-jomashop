@@ -27,6 +27,23 @@ All paths are forwarded to `DEFAULT_DESTINATION`:
 - `https://udl.jomashop.com/` → redirects to `DEFAULT_DESTINATION`
 - `https://udl.jomashop.com/watches/rolex` → redirects to `DEFAULT_DESTINATION/watches/rolex`
 
+## Smart App Store Link
+
+`/download` detects the visitor's OS via user-agent and instantly redirects:
+
+| Device  | Destination |
+|---------|-------------|
+| iPhone / iPad | [App Store](https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472) |
+| Android | [Google Play](https://play.google.com/store/apps/details?id=com.jomashop.app) |
+| Desktop / Other | [jomashop.com/app/](https://www.jomashop.com/app/) |
+
+The redirect fires in `<script>` before the page renders, so it's effectively instant. If JS is disabled or the redirect stalls, users see a polished fallback page with manual store buttons.
+
+**Use it as a single link** in email campaigns, QR codes, social bios, etc:
+```
+https://udl.jomashop.com/download
+```
+
 ## Environment Variables
 
 | Variable | Description | Example |

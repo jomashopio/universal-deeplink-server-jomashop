@@ -18,6 +18,13 @@ get "/.well-known/assetlinks.json" do |env|
   ASSETLINKS_CONTENT
 end
 
+# ── Smart App Store Link ──
+# Detects iOS/Android via client-side UA and redirects to the correct store.
+# Desktop/unknown falls back to the web landing page.
+get "/download" do |env|
+  render "src/views/smartlink.ecr"
+end
+
 get "/" do |env|
   if default_target = ENV["DEFAULT_DESTINATION"]?
     env.redirect default_target.rstrip("/") + "/"
