@@ -19,28 +19,27 @@ get "/.well-known/assetlinks.json" do |env|
 end
 
 # ── Smart App Store Link ──
-# Detects iOS/Android via client-side UA and redirects to the correct store.
-# Desktop/unknown falls back to the web landing page.
-get "/app" do |env|
-  render "src/views/smartlink.ecr"
-end
-
-# ── In-App Store Trigger ──
-# Server-side UA detection + 302 redirect.
-# WKWebView blocks JS custom-scheme redirects, but handles HTTP 302s
-# at the network level before its navigation policy kicks in.
+# Server-side UA detection + 302 redirect to escape in-app webviews
+# (Instagram, TikTok, etc). Desktop/unknown falls back to landing page.
 IOS_STORE     = "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472"
 ANDROID_STORE = "https://play.google.com/store/apps/details?id=com.jomashop.app"
+FALLBACK_URL  = "https://www.jomashop.com/app/"
 
-get "/home" do |env|
+get "/app" do |env|
   ua = env.request.headers["User-Agent"]? || ""
   if ua.includes?("iPhone") || ua.includes?("iPad") || ua.includes?("iPod")
     env.redirect IOS_STORE
   elsif ua.downcase.includes?("android")
     env.redirect ANDROID_STORE
   else
-    render "src/views/appstore.ecr"
+    env.redirect FALLBACK_URL
   end
+end
+
+# ── In-App Store Trigger ──
+# Loaded from within the Jomashop app to open the native store for updates.
+get "/home" do |env|
+  render "src/views/appstore.ecr"
 end
 
 get "/" do |env|
