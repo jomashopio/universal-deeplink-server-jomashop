@@ -34,9 +34,16 @@ end
 
 # ── In-App Upgrade Trigger ──
 # Server-side 302 to break out of the app's webview.
-# AASA excludes this path so iOS doesn't intercept it.
+# The redirect happens at the HTTP level before the webview renders.
 get "/app-upgrade/" do |env|
-  env.redirect "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472"
+  ua = env.request.headers["User-Agent"]? || ""
+  if ua.includes?("iPhone") || ua.includes?("iPad") || ua.includes?("iPod")
+    env.redirect "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472"
+  elsif ua.downcase.includes?("android")
+    env.redirect "https://play.google.com/store/apps/details?id=com.jomashop.app"
+  else
+    render "src/views/upgrade.ecr"
+  end
 end
 
 get "/" do |env|

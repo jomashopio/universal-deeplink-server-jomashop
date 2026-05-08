@@ -11,7 +11,7 @@
           {
             "/": "/app-upgrade/*",
             "exclude": true,
-            "comment": "Let /app-upgrade/ hit the server instead of opening the app"
+            "comment": "Reserved for app upgrade. Use this to open the app directly to the update page in the App Store."
           },
           {
             "/": "*",
