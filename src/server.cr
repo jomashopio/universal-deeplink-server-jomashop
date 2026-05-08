@@ -29,7 +29,7 @@ end
 # Loaded from within the Jomashop app to open the native store
 # for rating, updating, or share-with-a-friend flows.
 get "/app/" do |env|
-  render "src/views/smartlink.ecr"
+  render "src/views/appstore.ecr"
 end
 
 get "/" do |env|
