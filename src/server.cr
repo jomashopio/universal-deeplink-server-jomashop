@@ -33,8 +33,13 @@ get "/app/" do |env|
 end
 
 # ── In-App Upgrade Trigger ──
-# Server-side 302 to break out of the app's webview.
-# The redirect happens at the HTTP level before the webview renders.
+# Server-side page to break out of the app's webview.
+# AASA excludes this path so iOS doesn't intercept it.
+# Both with and without trailing slash to avoid 404 from mismatch.
+get "/app-upgrade" do |env|
+  render "src/views/upgrade.ecr"
+end
+
 get "/app-upgrade/" do |env|
   render "src/views/upgrade.ecr"
 end

@@ -9,9 +9,14 @@
         ],
         "components": [
           {
+            "/": "/app-upgrade",
+            "exclude": true,
+            "comment": "Exclude exact /app-upgrade from Universal Links"
+          },
+          {
             "/": "/app-upgrade/*",
             "exclude": true,
-            "comment": "Reserved for app upgrade. Use this to open the app directly to the update page in the App Store."
+            "comment": "Exclude /app-upgrade/ and sub-paths from Universal Links"
           },
           {
             "/": "*",
