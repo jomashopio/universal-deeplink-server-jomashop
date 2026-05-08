@@ -3,24 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jomashop App</title>
+    <title>Get the Jomashop App</title>
+    <meta name="description" content="Download the Jomashop app for iOS or Android." />
 
-    <!--
-      In-app download trigger.
-      Loaded inside the Jomashop app webview to open the native store
-      for rating, updating, or sharing with a friend.
-    -->
+    <!-- Immediate JS redirect (fires before page renders) -->
     <script>
       (function () {
         var ua = navigator.userAgent || navigator.vendor || window.opera;
+        var IOS_URL     = "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472";
+        var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.jomashop.app";
+        var FALLBACK    = "https://www.jomashop.com/app/";
 
-        if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-          // itms-apps:// opens App Store natively from the app's webview
-          window.location.replace("itms-apps://itunes.apple.com/app/id6444218472");
-        } else if (/android/i.test(ua)) {
-          // market:// opens Play Store natively from the app's webview
-          window.location.replace("market://details?id=com.jomashop.app");
-        }
       })();
     </script>
 
@@ -31,7 +24,9 @@
         font-display: swap;
         src: url('https://www.jomashop.com/dist/file/Inter-Regular-subset-latin.c12fef52fecfde9da501.woff2') format('woff2');
       }
+
       *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         background: #fff;
@@ -42,29 +37,50 @@
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
       }
+
       .container {
         text-align: center;
         padding: 2rem 1.5rem;
         max-width: 380px;
       }
-      .logo { margin-bottom: 2rem; }
-      .logo img { height: 22px; width: auto; }
-      p {
+
+      .logo {
+        margin-bottom: 2rem;
+      }
+      .logo img {
+        height: 22px;
+        width: auto;
+      }
+
+      h1 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.35rem;
+        letter-spacing: -0.01em;
+      }
+
+      .subtitle {
         font-size: 0.85rem;
         color: #777;
-        line-height: 1.4;
         margin-bottom: 1.75rem;
+        line-height: 1.4;
       }
+
       .badges {
         display: flex;
         justify-content: center;
         gap: 0.75rem;
       }
+
       .badges a {
         display: block;
         transition: opacity 0.15s ease;
       }
-      .badges a:hover { opacity: 0.75; }
+      .badges a:hover {
+        opacity: 0.75;
+      }
+
       .badges img {
         height: 44px;
         width: auto;
@@ -78,13 +94,14 @@
         <img src="https://www.jomashop.com/assets/joma/jomashop_logo.png" alt="Jomashop" height="22" width="190" />
       </div>
 
-      <p>Opening your store…</p>
+      <h1>Never pay retail.</h1>
+      <p class="subtitle">Our app makes it easy.</p>
 
       <div class="badges">
-        <a href="https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472">
+        <a id="btn-ios" href="https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472">
           <img src="https://www.jomashop.com/media/cms/app/download_ios.png" alt="Download on the App Store" />
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.jomashop.app">
+        <a id="btn-android" href="https://play.google.com/store/apps/details?id=com.jomashop.app">
           <img src="https://www.jomashop.com/media/cms/app/download_android.png" alt="Get it on Google Play" />
         </a>
       </div>
