@@ -26,10 +26,24 @@ get "/home" do |env|
 end
 
 # ── In-App Store Trigger ──
-# Loaded from within the Jomashop app to open the native store
-# for rating, updating, or share-with-a-friend flows.
-get "/flash-sale-offers.html" do |env|
+# Detects iOS/Android via client-side UA and redirects to the correct store.
+# Desktop/unknown falls back to the web landing page.
+get "/app/" do |env|
   render "src/views/appstore.ecr"
+end
+
+# ── In-App Upgrade Trigger ──
+# Server-side 302 to break out of the app's webview.
+# The redirect happens at the HTTP level before the webview renders.
+get "/app-upgrade/" do |env|
+  ua = env.request.headers["User-Agent"]? || ""
+  if ua.includes?("iPhone") || ua.includes?("iPad") || ua.includes?("iPod")
+    env.redirect "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472"
+  elsif ua.downcase.includes?("android")
+    env.redirect "https://play.google.com/store/apps/details?id=com.jomashop.app"
+  else
+    render "src/views/upgrade.ecr"
+  end
 end
 
 get "/" do |env|

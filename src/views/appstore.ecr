@@ -12,7 +12,7 @@
         var ua = navigator.userAgent || navigator.vendor || window.opera;
         var IOS_URL     = "https://apps.apple.com/us/app/jomashop-designer-shopping/id6444218472";
         var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.jomashop.app";
-        var FALLBACK    = "https://www.jomashop.com/flash-sale-offers.html";
+        var FALLBACK    = "https://www.jomashop.com/app/";
 
         if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
           window.location.replace(IOS_URL);
