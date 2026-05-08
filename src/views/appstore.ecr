@@ -14,6 +14,13 @@
         var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.jomashop.app";
         var FALLBACK    = "https://www.jomashop.com/flash-sale-offers.html";
 
+        if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+          window.location.replace(IOS_URL);
+        } else if (/android/i.test(ua)) {
+          window.location.replace(ANDROID_URL);
+        } else {
+          window.location.replace(FALLBACK);
+        }
       })();
     </script>
 
