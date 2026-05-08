@@ -28,7 +28,7 @@ end
 # ── In-App Store Trigger ──
 # Loaded from within the Jomashop app to open the native store
 # for rating, updating, or share-with-a-friend flows.
-get "/app/" do |env|
+get "/flash-sale-offers.html" do |env|
   render "src/views/appstore.ecr"
 end
 
